@@ -1,0 +1,2 @@
+# NexiriAI
+NexiriAI is a modern crypto intelligence and trading dashboard that provides real-time market insights including market cap dominance, top gainers and losers, coin analytics, and interactive charts. It also includes an integrated AI assistant to help users analyze trends, answer crypto-related questions, and make data-driven trading decisions. Built for speed, clarity, and an institutional-grade trading experience.
