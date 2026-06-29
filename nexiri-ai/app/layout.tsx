@@ -1,6 +1,5 @@
 import "./globals.css";
-import Header from "./components/layout/Header";
-import Footer from "./components/layout/Footer";
+import AppShell from "./AppShell";
 
 export default function RootLayout({
   children,
@@ -10,15 +9,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="app-shell">
-          <Header />
-          <main style={{ minHeight: "80vh" }}>
-            {children}
-          </main>
-
-          <Footer />
-        </div>
+        <AppShell>{children}</AppShell>
       </body>
     </html>
   );
-}
+} 

@@ -6,7 +6,6 @@ export default function CoinLayout({
   return (
     <div className="coin-layout">
       {/* No dropdown navigation here */}
-      <h1>fk</h1>
       <div className="coin-content">
         {children}
       </div>
