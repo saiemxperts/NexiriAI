@@ -1,17 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useChatStore } from "@/app/stores/chatStore";
 import Header from "./components/layout/Header";
-import Sidebar from "./components/layout/Sidebar";
 import Footer from "./components/layout/Footer";
+import ChatSidebar from "./components/chatbot/ChatSidebar";
 
 export default function AppShell({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
 
+  const sidebarOpen = useChatStore((state: any) => state.isOpen);
   return (
     <div className="min-h-screen flex">
       {/* Main area */}
@@ -20,9 +20,7 @@ export default function AppShell({
           sidebarOpen ? "w-[calc(100%-320px)]" : "w-full"
         }`}
       >
-        <Header
-          onToggle={() => setSidebarOpen((prev) => !prev)}
-        />
+        <Header />
 
         <main className="flex-1 p-6">
           {children}
@@ -32,9 +30,7 @@ export default function AppShell({
       </div>
 
       {/* Right Sidebar */}
-      <Sidebar
-        isOpen={sidebarOpen}
-      />
+      <ChatSidebar />
     </div>
   );
 }
