@@ -79,7 +79,7 @@ export function CryptoDropdownNav({
     <div
       ref={dropdownRef}
       className={cn(
-        "relative mx-auto w-fit font-[Inter,sans-serif] flex flex-col",
+        "relative mx-auto my-4 w-fit font-[Inter,sans-serif] flex flex-col",
         className
       )}
     >

@@ -11,8 +11,8 @@ export default function Header() {
   const toggleSidebar = useChatStore((state: any) => state.toggle);
   const [SearchValue, setSearchValue] = useState("");
   return (
-    <header className="h-16 border-b flex items-center justify-between px-8">
-      <div className="w-48 flex items-center justify-center">
+    <header className="h-16 flex items-center justify-between px-8">
+      <div className="w-38 flex items-center justify-center">
       <Image src={NexiriAiLogo} alt="Nexiri AI Logo" style={{
     width: "auto",
     height: "auto",
