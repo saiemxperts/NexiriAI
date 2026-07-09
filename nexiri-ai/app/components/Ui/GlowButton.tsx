@@ -11,7 +11,7 @@ export interface GlowButtonProps
 
 const defaultIcon = (
   <svg
-    className={cn("h-[18px] w-[18px]", styles.icon)}
+    className={cn("h-[16px] w-[16px]", styles.icon)}
     fill="none"
     stroke="currentColor"
     viewBox="0 0 24 24"
@@ -31,7 +31,7 @@ export const GlowButton = React.forwardRef<HTMLButtonElement, GlowButtonProps>(
         ref={ref}
         type="button"
         className={cn(
-          "relative inline-flex cursor-pointer items-center justify-center overflow-hidden border-0 px-[18px] py-3 outline-none transition-all duration-[250ms] ease-in-out active:scale-95",
+          "relative inline-flex cursor-pointer items-center justify-center overflow-hidden border-0 px-[28px] py-1.5 outline-none transition-all duration-[250ms] ease-in-out active:scale-95",
           styles.button,
           className
         )}
@@ -46,8 +46,8 @@ export const GlowButton = React.forwardRef<HTMLButtonElement, GlowButtonProps>(
         </div>
 
         <span className="relative z-[2] inline-flex w-full items-center justify-center gap-1.5 text-base font-medium leading-normal text-white transition-colors duration-200 ease-in-out">
-          {icon}
           {children ?? "Credits"}
+          {icon}
         </span>
       </button>
     );
