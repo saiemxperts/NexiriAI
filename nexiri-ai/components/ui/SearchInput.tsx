@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import { Search, X } from "lucide-react";
-import { Input } from "@/components/ui/input";
+import { Input } from "./input";
 import { cn } from "@/lib/utils";
 
 interface SearchResult {
@@ -11,7 +11,7 @@ interface SearchResult {
   cusip: string;
 }
 
-interface SearchInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange"> {
+interface SearchInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange" | "results"> {
   value: string;
   onChange: (value: string) => void;
   onClear?: () => void;

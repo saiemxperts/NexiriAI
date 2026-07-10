@@ -1,9 +1,9 @@
 "use client";
 
 import { useChatStore } from "@/app/stores/chatStore";
-import Header from "./components/layout/Header";
-import Footer from "./components/layout/Footer";
-import ChatSidebar from "./components/chatbot/ChatSidebar";
+import Header from "../components/layout/Header";
+import Footer from "../components/layout/Footer";
+import ChatSidebar from "../components/chatbot/ChatSidebar";
 
 export default function AppShell({
   children,
