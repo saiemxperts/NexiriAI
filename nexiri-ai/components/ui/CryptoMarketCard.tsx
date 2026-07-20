@@ -114,7 +114,7 @@ export default function CryptoMarketCard({
     <div
       className={cn(
         "flex w-full min-h-[72px] items-center gap-3 box-border",
-        "rounded-[14px] border border-[#f0eded] hover:bg-[#f0eded] transition-colors duration-200",
+        "rounded-[14px] border border-[#f0eded] hover:bg-[#f0eded] hover:cursor-pointer transition-colors duration-200",
         "px-4 py-3 sm:px-4 sm:py-3",
         "max-sm:px-3.5 max-sm:py-2.5",
         className
