@@ -1,6 +1,7 @@
 .button {
   --round: 0.75rem;
-  background: radial-gradient(
+  background:
+    radial-gradient(
       65.28% 65.28% at 50% 100%,
       rgba(223, 113, 255, 0.8) 0%,
       rgba(223, 113, 255, 0) 100%
@@ -30,7 +31,8 @@
 
 .button::after {
   --space: 2px;
-  background: radial-gradient(
+  background:
+    radial-gradient(
       65.28% 65.28% at 50% 100%,
       rgba(223, 113, 255, 0.8) 0%,
       rgba(223, 113, 255, 0) 100%
@@ -167,7 +169,9 @@
 
 .button:hover .icon {
   fill: transparent;
-  animation: dasharray 1s linear forwards, filled 0.1s linear forwards 0.95s;
+  animation:
+    dasharray 1s linear forwards,
+    filled 0.1s linear forwards 0.95s;
 }
 
 @keyframes dasharray {

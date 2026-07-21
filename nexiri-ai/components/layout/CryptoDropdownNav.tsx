@@ -46,7 +46,7 @@ export function CryptoDropdownNav({
   const pathname = usePathname();
 
   const [open, setOpen] = React.useState(false);
-  
+
   const activeItem = MENU_ITEMS.find((item) => item.href === pathname) ?? null;
 
   const dropdownRef = React.useRef<HTMLDivElement>(null);

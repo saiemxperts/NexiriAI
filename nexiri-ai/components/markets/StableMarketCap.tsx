@@ -21,7 +21,7 @@ function useRandomWalk(seed: number, start: number) {
     };
 }
 
-export default function TotalMarketCap() {
+export default function StableCoinMarketCap() {
     const chartRef = useRef<AreaChartHandle>(null);
 
     const [seedData] = useState(() => {
@@ -36,21 +36,15 @@ export default function TotalMarketCap() {
             });
         return {
             price: points(100, 2.2),
-            fast: points(98, 1.4),
-            slow: points(102, 1.4),
         };
     });
 
     const priceWalk = useRandomWalk(2.2, seedData.price.at(-1)!.value);
-    const fastWalk = useRandomWalk(1.4, seedData.fast.at(-1)!.value);
-    const slowWalk = useRandomWalk(1.4, seedData.slow.at(-1)!.value);
 
     useEffect(() => {
         const interval = setInterval(() => {
             const time = Math.floor(Date.now() / 1000) as UTCTimestamp;
             chartRef.current?.updatePoint('price', { time, value: priceWalk() });
-            chartRef.current?.updatePoint('fast', { time, value: fastWalk() });
-            chartRef.current?.updatePoint('slow', { time, value: slowWalk() });
         }, 4000);
         return () => clearInterval(interval);
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -59,7 +53,7 @@ export default function TotalMarketCap() {
     return (
         <div>
             <div className="mx-4 mt-2">
-                <LinkedSectionHeading fontSize="lg" href="/markets/cryptocurrencies/market-cap" label="Crypto total market cap" />
+                <LinkedSectionHeading fontSize="lg" href="/markets/cryptocurrencies/market-cap" label="Stablecoin market cap" />
                 <div className="flex flex-wrap gap-12 mt-4">
                     <MetricCard
                         value="2.18 T"
@@ -68,20 +62,14 @@ export default function TotalMarketCap() {
                         diff="-11.68 B"
                         percentage={-0.53}
                     />
-                    <MetricCard
-                        value="2.18 T"
-                        unit="USD"
-                        label="Volume"
-                        percentage={+0.53}
-                    />
                 </div>
             </div>
             <AreaChart
                 ref={chartRef}
                 gridColor="transparent"
-                height={420}
+                height={50}
                 showYaxisScale={false}
-                showXaxisScale={true}
+                showXaxisScale={false}
                 series={[
                     {
                         id: 'price',

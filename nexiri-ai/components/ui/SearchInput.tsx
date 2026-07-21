@@ -47,10 +47,10 @@ export function SearchInput({
 
   const filtered = value
     ? results.filter((r) =>
-        [r.symbol, r.name, r.isin, r.cusip].some((f) =>
-          f.toLowerCase().includes(value.toLowerCase())
-        )
+      [r.symbol, r.name, r.isin, r.cusip].some((f) =>
+        f.toLowerCase().includes(value.toLowerCase())
       )
+    )
     : results;
 
   return (

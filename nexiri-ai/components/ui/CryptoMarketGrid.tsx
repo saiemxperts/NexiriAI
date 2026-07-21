@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import CryptoMarketCard from "@/components/ui/CryptoMarketCard";
+import LinkedSectionHeading from "./LinkedSectionHeading";
 
 interface CoinData {
   id: string;
@@ -86,19 +87,23 @@ export default function CryptoMarketGrid({ initialCoins }: Props) {
   }, [initialCoins]);
 
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 mt-4">
-      {coins.map((coin) => (
-        <CryptoMarketCard
-          key={coin.id}
-          iconSrc={coin.image}
-          name={coin.name}
-          symbol={coin.symbol}
-          price={coin.current_price}
-          currency="USD"
-          changePercent={coin.price_change_percentage_24h ?? 0}
-          variant="default"
-        />
-      ))}
+    <div>
+      <LinkedSectionHeading href="/markets/coins" label="Market Summary" />
+
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 mt-4">
+        {coins.map((coin) => (
+          <CryptoMarketCard
+            key={coin.id}
+            iconSrc={coin.image}
+            name={coin.name}
+            symbol={coin.symbol}
+            price={coin.current_price}
+            currency="USD"
+            changePercent={coin.price_change_percentage_24h ?? 0}
+            variant="default"
+          />
+        ))}
+      </div>
     </div>
   );
 }
