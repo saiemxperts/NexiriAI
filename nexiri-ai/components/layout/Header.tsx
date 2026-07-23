@@ -1,11 +1,11 @@
 "use client";
 
 import { useChatStore } from "@/app/stores/chatStore";
-import { SearchInput } from "../Ui/SearchInput";
+import { SearchInput } from "../ui/SearchInput";
 import { useState } from "react";
 import Image from "next/image";
 import NexiriAiLogo from "@/public/nexiri-ai-logo.png";
-import { GlowButton } from "../Ui/GlowButton";
+import { GlowButton } from "../ui/GlowButton";
 
 export default function Header() {
   const toggleSidebar = useChatStore((state: any) => state.toggle);

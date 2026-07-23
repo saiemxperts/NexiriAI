@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { useDigitFlash } from "@/hooks/useDigitFlash";
 
 type CryptoCardVariant = "default" | "split";
 
@@ -7,12 +8,34 @@ interface CryptoMarketCardProps {
   iconSrc: string;
   iconAlt?: string;
   name: string;
-  symbol?: string; // e.g. "BTC" — used in the "split" variant
-  price: string;
+  symbol?: string;
+  price: number;
   currency?: string;
-  changePercent: number; // e.g. 1.37 or -2.4
+  changePercent: number;
   variant?: CryptoCardVariant;
   className?: string;
+}
+
+function renderFlashedNumber(
+  text: string,
+  flashMap: Record<number, "up" | "down">,
+  offset: number
+) {
+  return text.split("").map((char, i) => {
+    const direction = flashMap[i + offset];
+    return (
+      <span
+        key={i}
+        className={cn(
+          "transition-colors duration-500",
+          direction === "up" && "text-[#089981]",
+          direction === "down" && "text-[#F23645]"
+        )}
+      >
+        {char}
+      </span>
+    );
+  });
 }
 
 export default function CryptoMarketCard({
@@ -36,6 +59,8 @@ export default function CryptoMarketCard({
   const sign = changePercent > 0 ? "+" : "";
   const formattedChange = `${sign}${changePercent.toFixed(2)}%`;
 
+  const { formatted: formattedPrice, flashMap, offset } = useDigitFlash(price);
+
   if (variant === "split") {
     return (
       <div
@@ -47,7 +72,6 @@ export default function CryptoMarketCard({
           className
         )}
       >
-        {/* Left: icon + name/symbol */}
         <div className="flex items-center gap-3">
           <div className="flex h-8 w-8 min-w-8 items-center justify-center overflow-hidden rounded-full max-sm:h-6 max-sm:w-6 max-sm:min-w-6">
             <Image
@@ -69,10 +93,9 @@ export default function CryptoMarketCard({
             )}
           </div>
         </div>
-        {/* Right: price on top, change below, both right-aligned */}
         <div className="flex flex-col items-end justify-center gap-1">
           <h4 className="m-0 text-[13px] font-normal leading-[18px] text-[#111111] text-right">
-            {price} {currency}
+            {renderFlashedNumber(formattedPrice, flashMap, offset)} {currency}
           </h4>
           <h4
             className={cn(
@@ -87,18 +110,16 @@ export default function CryptoMarketCard({
     );
   }
 
-  // default variant
   return (
     <div
       className={cn(
         "flex w-full min-h-[72px] items-center gap-3 box-border",
-        "rounded-[14px] border border-[#f0eded] hover:bg-[#f0eded] transition-colors duration-200",
+        "rounded-[14px] border border-[#f0eded] hover:bg-[#f0eded] hover:cursor-pointer transition-colors duration-200",
         "px-4 py-3 sm:px-4 sm:py-3",
         "max-sm:px-3.5 max-sm:py-2.5",
         className
       )}
     >
-      {/* Icon */}
       <div className="flex h-8 w-8 min-w-8 items-center justify-center overflow-hidden rounded-full max-sm:h-6 max-sm:w-6 max-sm:min-w-6">
         <Image
           src={iconSrc}
@@ -109,7 +130,6 @@ export default function CryptoMarketCard({
         />
       </div>
 
-      {/* Content */}
       <div className="flex w-full flex-col justify-center gap-1">
         <h3 className="m-0 text-[16px] font-medium leading-[18px] tracking-normal text-[#111111] max-sm:text-[16px]">
           {name}
@@ -117,7 +137,7 @@ export default function CryptoMarketCard({
 
         <div className="flex flex-wrap items-center gap-2">
           <h4 className="m-0 text-[13px] font-normal leading-[18px] text-[#111111] max-sm:text-[13px]">
-            {price} {currency}
+            {renderFlashedNumber(formattedPrice, flashMap, offset)} {currency}
           </h4>
           <h4
             className={cn(

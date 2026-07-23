@@ -1,4 +1,4 @@
-import CryptoDropdownNav from "@/app/components/layout/CryptoDropdownNav";
+import CryptoDropdownNav from "@/components/layout/CryptoDropdownNav";
 
 export default function CryptoLayout({
   children,

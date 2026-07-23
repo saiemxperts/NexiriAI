@@ -1,72 +1,51 @@
-import CryptoMarketCard from "@/app/components/Ui/CryptoMarketCard";
-import LinkedSectionHeading from "@/app/components/Ui/LinkedSectionHeading";
+import StableCoinMarketCap from "@/components/markets/StableMarketCap";
+import TotalMarketCap from "@/components/markets/TotalMarketCap";
+import CryptoMarketCard from "@/components/ui/CryptoMarketCard";
+import CryptoMarketGrid from "@/components/ui/CryptoMarketGrid";
+import LinkedSectionHeading from "@/components/ui/LinkedSectionHeading";
+import { MetricCard } from "@/components/ui/MetricCard";
 
-interface CryptoMockData {
-  id: string;
-  iconSrc: string;
-  name: string;
-symbol?: string;
-  price: string;
-  currency: string;
-  changePercent: number;
+async function getTopCoins() {
+  const res = await fetch(
+    "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false",
+    {
+      next: {
+        revalidate: 60, // Refresh every minute
+      },
+    }
+  );
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch top coins");
+  }
+
+  return res.json();
 }
 
-const mockCryptoData: CryptoMockData[] = [
-  {
-    id: "bitcoin",
-    iconSrc: "https://s3-symbol-logo.tradingview.com/crypto/XTVCBTC.svg",
-    name: "Bitcoin",
-    symbol: "BTC",
-    price: "63,099.70",
-    currency: "USD",
-    changePercent: 1.37,
-  },
-  {
-    id: "ethereum",
-    iconSrc: "https://s3-symbol-logo.tradingview.com/crypto/XTVCETH.svg",
-    name: "Ethereum",
-    symbol: "ETH",
-    price: "3,412.85",
-    currency: "USD",
-    changePercent: -0.82,
-  },
-  {
-    id: "solana",
-    iconSrc: "https://s3-symbol-logo.tradingview.com/crypto/XTVCSOL.svg",
-    name: "Solana",
-    symbol: "SOL",
-    price: "142.63",
-    currency: "USD",
-    changePercent: 4.21,
-  },
-  {
-    id: "ripple",
-    iconSrc: "https://s3-symbol-logo.tradingview.com/crypto/XTVCXRP.svg",
-    name: "XRP",
-    symbol: "XRP",
-    price: "0.5231",
-    currency: "USD",
-    changePercent: 0,
-  },
-];
+export default async function CryptocurrenciesOverviewPage() {
+  const excludedCoins = ["tether", "usd-coin", "binance-usd", "dai", "true-usd"];
+  const coins = await getTopCoins();
+  const filteredCoins = coins.filter((coin: any) => !excludedCoins.includes(coin.id)).slice(0, 4); // Limit to top 4 coins after filtering
 
-export default function CryptocurrenciesOverviewPage() {
   return (
     <>
-      <LinkedSectionHeading href="/markets/coins" label="Market Summary" />
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 mt-4">
-        {mockCryptoData.map((coin) => (
-          <CryptoMarketCard
-            key={coin.id}
-            iconSrc={coin.iconSrc}
-            name={coin.name}
-            symbol={coin.symbol}
-            price={coin.price}
-            currency={coin.currency}
-            changePercent={coin.changePercent}
-            variant="split"
-          />
-        ))}
+      <CryptoMarketGrid initialCoins={filteredCoins} />
+      <div className="grid gap-4 lg:grid-cols-[2fr_1fr] my-6">
+        <div className="h-full rounded-lg border px-0 py-2">
+          <TotalMarketCap />
+        </div>
+
+        <div className="h-full rounded-lg p-0 flex flex-col justify-between">
+        <div className="flex h-auto flex-col justify-between rounded-lg border px-0 py-2 overflow-hidden">
+          <StableCoinMarketCap />
+        </div>
+        <div className="flex h-auto flex-col justify-between rounded-lg border px-0 py-2 overflow-hidden">
+          <StableCoinMarketCap />
+        </div>
+        <div className="flex h-auto flex-col justify-between rounded-lg border px-0 py-2 overflow-hidden">
+          <StableCoinMarketCap />
+        </div>
+        </div>
       </div>
     </>
   );
